@@ -21,11 +21,12 @@ Vagrant.configure("2") do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network :forwarded_port, guest: 80, host: 8080
+  # config.vm.network :forwarded_port, guest: 80, host: 8080
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network :private_network, ip: "192.168.33.10"
+  # config.vm.network :private_network, ip: "192.168.33.10"
+  config.vm.network "private_network", ip: "192.168.33.10"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -37,10 +38,12 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder ".", "/vagrant" # DEFAULT
-  config.vm.synced_folder ".", "/vagrant", :mount_options => ["dmode=777,fmode=777"] # VirtualBox shared directory workaround
+  # config.vm.synced_folder ".", "/vagrant", :mount_options => ["dmode=777,fmode=777"] # VirtualBox shared directory workaround
+  # config.vm.share_folder("v-root", "/vagrant", ".", :nfs => true)
+  config.vm.synced_folder '.', '/vagrant', type: 'nfs'
 
   # Set the virtual machine host name
-  config.vm.hostname = "magento.localhost"
+  # config.vm.hostname = "magento.localhost"
 
 
   # ADDITIONAL CONFIGURATIONS
